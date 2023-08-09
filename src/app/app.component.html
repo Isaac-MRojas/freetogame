@@ -1,0 +1,43 @@
+<div class="container mt-2">
+  <div class="row">
+    <form [formGroup]="busquedaForm" (ngSubmit)="onSubmit()">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Categoría" formControlName="categoria">
+        <button class="btn btn-outline-primary" type="submit" [disabled]="!busquedaForm.valid">Buscar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row justify-content-md-center" *ngIf="carga">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div class="row row-cols-4 mb-4">
+    <div class="col mt-4" *ngFor="let juego of juegos">
+      <div class="card text-bg-dark" style="width: 18rem; height: 34rem;">
+        <img [src]="juego.thumbnail" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ juego.title }}</h5>
+          <p class="card-text">{{ juego.short_description }}</p>
+          <div class="row">
+            <a href="#" class="card-link">{{ juego.game_url }}</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-outline-info m-1" disabled>{{ juego.genre }}</button>
+          <button type="button" class="btn btn-outline-info m-1" disabled>{{ juego.platform }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="sinRespuesta">
+    <div class="alert alert-info" role="alert">
+      Sin resultados
+    </div>
+  </div>
+
+</div>
+<router-outlet></router-outlet>
